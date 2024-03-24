@@ -8,9 +8,12 @@ const CONTAINER_SQUARE_SIDE_LENGTH = BASE_GRID_LENGTH * BASE_SQUARE_DIV_SIDE_LEN
 let container = document.querySelector(".container");
 container.style.width = CONTAINER_SQUARE_SIDE_LENGTH.toString() + "px";
 container.style.height = CONTAINER_SQUARE_SIDE_LENGTH.toString() + "px";
-container.style.margin = "25px";
 container.style.borderColor = "black";
 container.style.borderStyle = "inset";
+container.style.marginTop = "10px";
+
+let menu = document.querySelector(".menu");
+menu.style.width = CONTAINER_SQUARE_SIDE_LENGTH.toString() + "px";
 
 let drawGrid = (size = BASE_GRID_LENGTH) => {
     let gridItemSide = `${CONTAINER_SQUARE_SIDE_LENGTH/size}px`;
@@ -23,7 +26,7 @@ let drawGrid = (size = BASE_GRID_LENGTH) => {
         gridItem.style.width = gridItemSide;
         gridItem.style.height = gridItemSide;
         gridItem.style.gap = "0px";
-        gridItem.addEventListener("mouseover", (event) => {
+        gridItem.addEventListener("dragover", (event) => {
             event.target.style.backgroundColor = "purple";
         })
         container.appendChild(gridItem);
