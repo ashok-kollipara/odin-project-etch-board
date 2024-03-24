@@ -26,7 +26,7 @@ let drawGrid = (size = BASE_GRID_LENGTH) => {
         gridItem.style.width = gridItemSide;
         gridItem.style.height = gridItemSide;
         gridItem.style.gap = "0px";
-        gridItem.addEventListener("dragover", (event) => {
+        gridItem.addEventListener("mouseover", (event) => {
             event.target.style.backgroundColor = "purple";
         })
         container.appendChild(gridItem);
