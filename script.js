@@ -2,7 +2,6 @@
 const GRID_CLASS_NAME = "grid";
 const BASE_GRID_LENGTH = 16; // 16 x 16 boxes grid
 const BASE_SQUARE_DIV_SIDE_LENGTH = 50; // 50 X 50 pixels square div
-const BASE_GRID_SIZE = BASE_GRID_LENGTH * BASE_GRID_LENGTH; // no.of square divs forming the grid
 const CONTAINER_SQUARE_SIDE_LENGTH = BASE_GRID_LENGTH * BASE_SQUARE_DIV_SIDE_LENGTH; // square side length = 16 squares * 50px (size of inner square div)
 
 let container = document.querySelector(".container");
@@ -11,9 +10,21 @@ container.style.height = CONTAINER_SQUARE_SIDE_LENGTH.toString() + "px";
 container.style.borderColor = "black";
 container.style.borderStyle = "inset";
 container.style.marginTop = "10px";
+container.style.backgroundColor = "black";
 
 let menu = document.querySelector(".menu");
 menu.style.width = CONTAINER_SQUARE_SIDE_LENGTH.toString() + "px";
+
+
+let colorize = (event) => {
+    let currentOpacity = event.target.style.opacity;
+    console.log("current opacity value", currentOpacity);
+    currentOpacity = parseFloat(currentOpacity);
+    currentOpacity -= 0.1;
+    currentOpacity = (currentOpacity > 0) ? currentOpacity : 0;
+    event.target.style.opacity = currentOpacity.toString();
+    event.target.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
+}
 
 let drawGrid = (size = BASE_GRID_LENGTH) => {
     let gridItemSide = `${CONTAINER_SQUARE_SIDE_LENGTH/size}px`;
@@ -26,16 +37,15 @@ let drawGrid = (size = BASE_GRID_LENGTH) => {
         gridItem.style.width = gridItemSide;
         gridItem.style.height = gridItemSide;
         gridItem.style.gap = "0px";
-        gridItem.addEventListener("mouseover", (event) => {
-            event.target.style.backgroundColor = "purple";
-        })
+        gridItem.style.opacity = "1";;
+        gridItem.addEventListener("mouseover", colorize);
         container.appendChild(gridItem);
     }
     console.log(`grid setup complete for size: ${size} boxes`);
 }
 
 let destroyGrid = () => {
-    let gridItems = document.querySelectorAll(".grid");
+    let gridItems = document.querySelectorAll(`.${GRID_CLASS_NAME}`);
     for (item of gridItems)
         container.removeChild(item);
     console.log("grid destroyed");
